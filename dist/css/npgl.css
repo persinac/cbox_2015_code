@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+html {
+    width: 100%;
+}
+
+body
+	{
+		width: 100%;
+		background:#5C5C5C !important;
+}
+
+img {
+	z-index: 1551;
+}
+
+.rectangles {
+	z-index: 2000;
+}

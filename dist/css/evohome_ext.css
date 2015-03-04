@@ -1,0 +1,21 @@
+body {
+	background-color: rgb(255, 255, 255);
+	background-image: url(../../images/evosnc/mainbackground.jpg);
+	background-repeat: repeat;
+	background-position: top left;
+	background-attachment: scroll;
+	margin: 0pt; 
+}
+
+.container_ext {
+	background-image: url(../../images/evosnc/low_con_linen.jpg);
+	background-repeat: repeat;
+	background-position: top left;
+	background-attachment: scroll;
+	opacity: 1.00;
+}
+
+.navbar_ext {
+	background-color: rgb(186, 48, 22);
+	border-color: rgb(186, 48, 22);
+}

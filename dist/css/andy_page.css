@@ -1,0 +1,61 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {
+    width: 100% !important;
+}
+
+body
+	{
+		width: 100% !important;
+		height: 100% !important;
+}
+
+#my_container {
+	width: 100% !important;
+	height: 100% !important;
+	margin-left: auto  !important;
+	margin-right: auto !important;
+	position: relative  !important;
+}
+
+#my_data_container {
+	position: relative !important;
+	width: 80% !important;
+	height: 80% !important;
+	left: 10%;
+	top: 10%;
+	font-family:Arial,Helvetica,sans-serif;
+}
+
+#main_assign {
+	left: 5%;
+}
+
+#example_line {
+	position: relative;
+	top: -10px;
+	left: 53px;
+	height: 3px;
+	width: 100px;
+	border: 2px solid;
+	border-color: #000000;
+}
+
+.tasks {
+	position: relative;
+	font-size:18px;
+	left: 5%;
+}
+
+ul {
+	position: relative;
+	font-size:16px;
+	left: 8%;
+	width: 85%;
+}
+
+h4 { 
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:24px;
+}

@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+html {
+    width: 100%;
+}
+
+body
+	{
+		background:#000000
+}
+
+div {
+
+}
+
+table {
+    margin: 0 auto;
+}
+
+.cft_foundamentals_sec1 {
+	border-color: #FF0004;
+	margin-top: -248px;
+	margin-left: 548px;
+}
+.cft_foundamentals_sec2 {
+	border-color: #FF0004;
+	margin-top: -74px;
+	margin-left: 914px;
+}
+.cft_foundamentals_sec3 {
+	border-color: #FF0004;
+	margin-left: 1273px;
+	margin-top: -70px;
+}

@@ -1,0 +1,273 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {
+    width: 100% !important;
+}
+
+body
+	{
+		width: 100% !important;
+		height: 900px !important;
+		background:#5C5C5C !important;
+}
+
+input[type=button] {
+	color: #000 !important;
+}
+
+#display_workout {
+	max-width: 500px;
+}
+
+#my_container {
+	width: 1224px !important;
+	margin-left: auto  !important;
+	margin-right: auto !important;
+	margin-top: 100px  !important;
+	position: relative  !important;
+	max-height: 1000px  !important;
+	height: 800px !important;
+}
+
+#my_data_container {
+	position: relative !important;
+	width: 1224px !important;
+	height: 792px !important;
+	top: -792px !important;
+	visibility: inherit;
+	
+}
+
+#what_to_compare {
+	position: relative;
+	width: 265px;
+	top: 125px;
+	height: 355px;
+	color: #FFF !important;
+	
+}
+
+#algorithm_div {
+	position: absolute;
+	top: 30px;
+	left: 500px;
+	color: #000;
+}
+
+#compare_but {
+	color: #000000;
+}
+#navbar_main_temp {
+	display: inline;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	position: relative;
+	font-size: medium;
+}
+
+#navbar_main ul {
+	list-style-type: none;
+	text-align: right;
+	position: absolute;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 0px;
+	padding-top: 11px;
+	left: -81px;
+	width: 1280px;
+	top: 29px;
+	} 
+ 
+#navbar_main ul li {
+	display: inline;
+	margin-top: 0px;
+	padding-left: 33px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	position: relative;
+	top: 37px;
+	margin-left: 4px;
+	left: -19px;
+	font-size: medium;
+	z-index:1251;
+	} 
+ 
+#navbar_main ul li a {
+	text-decoration: none;
+	color: #fff;
+	padding-bottom: .2em;
+	padding-left: 32px;
+	padding-right: 0.5em;
+	padding-top: .2em;
+	} 
+ 
+#navbar_main ul li a:hover { 
+
+	} 
+ 
+
+#navbar_main_ul li:nth-child(1) a {
+	color: #FFF;
+	padding-left: 0px;
+	margin-left: -12px;
+	left: 0px;
+	width: auto;
+	margin-top: -12px;
+	margin-right: -20px;
+	margin-bottom: -12px;
+}
+
+#navbar_main_ul li:nth-child(2) a {
+	color: #FFF;
+	margin-top: 5px;
+	margin-right: -7px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+
+#navbar_main_ul li:nth-child(3) a {
+	color: #FFF;
+	margin-top: 11px;
+	margin-right: 2px;
+	margin-bottom: 11px;
+	margin-left: 11px;
+}
+
+#navbar_main_ul li:nth-child(4) a {
+	color: #FFF;
+	margin-right: -20px;
+}
+#navbar_main_ul li:nth-child(5) a {
+	color: #FFF;
+	margin-right: -4px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+	
+#navbar_main ul li.active a{
+	color: rgb( 121, 0, 0 );
+	font-size:larger;	
+	}
+	
+	
+#wod_list {
+	height: 208px;
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: auto;
+	position: absolute;
+	top: 125px;
+	width: 555px;
+	left: 267px;
+	color: #FFF;
+}
+
+#leaderboard {
+	position: absolute;
+	top: 125px;
+	left: 850px;
+	width: 374px;
+	height: 667px;
+}
+
+#leaderboard_headers {
+	font-size: large;
+	color: #fff;
+}
+
+#tbl_leaderboard {
+	background-color:#eee;
+	border-collapse:collapse;
+}
+
+#tbl_leaderboard th {
+	background-color:#000;
+	color:white;
+	width:50%;
+}
+
+#tbl_leaderboard th, td {
+	padding:5px;
+	border:1px solid #000;
+}
+
+#chart_div {
+	position: absolute;
+	top: 500px;
+	left: 500px;
+}
+
+.tbl_body_wod_list {
+	padding-left: 0px;
+	margin-left: 0px;
+	position: relative;
+	bottom: 0px;
+}
+
+.tdDivNameOfAthlete {
+	padding-left: 10px;
+	color: #000;
+}
+
+.tdDivScore {
+	padding-left: 10px;
+	color: #000;
+}
+
+
+#tbl_wod_list {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-spacing: 0px 0px;
+	border-collapse: separate;
+	border-color: #000000;
+	border-style: solid;
+	margin-left: 12px;
+	padding-left: 0px;
+	display: inline-table;
+	text-align: left;
+	text-decoration: none;
+	overflow-y: scroll;
+	position: relative;
+	width: 524px;
+	max-width: 524px;
+}
+
+td{
+	padding: 6px;
+	max-height: 200px;
+	max-width:800px;
+	min-width:100px;
+}
+
+.tdDivBox
+{
+    width: 100%;
+    height: 100%;
+}
+.tdDivBox a
+{
+    width: 100%;
+    height: 100%;
+    display: block;
+}	
+
+.radio_butts {
+	width: 0px;
+	/*float:left !important;*/
+}
+
+.active {
+	font-size:larger;	
+}
+
+.a {
+	color: #0F0;	
+}
+
+img {
+	z-index: -1;
+}
+.long_description{
+	overflow-y: scroll !important;
+	}

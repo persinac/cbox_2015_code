@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.user_picture {
+	width: 320px;
+	height: 320px;
+	margin-bottom: 15px;
+	margin-right: 10px;
+}
+
+.user_information {
+	border: 2px solid;
+	border-radius: 5px;
+	height: 400px;
+}
+
+.user_description {
+	float: left;
+	margin-bottom: 15px;
+	margin-right: 30px;
+}
+
+.user_info_header {
+	font-size: large;
+	margin-right: 5px;
+}
+
+.edit_user_description {
+	margin-bottom: 15px;
+	margin-right: 30px;
+}
+
+.user_update input[type="text"] {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.change_picture {
+	height: 200px;
+	border: 2px solid;
+}
+
+.small_user_picture {
+	width: 140px;
+	height: 140px;
+	margin-bottom: 15px;
+	margin-right: 10px;
+	float: left;
+}
+
+.individual_activity {
+	width: 100%;
+	float: left;
+}

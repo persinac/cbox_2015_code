@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Challenge Calendar</title>
+
+    <!-- Bootstrap -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+	    <!-- Custom styles for this template -->
+	<link href='dist/fullcalendar/fullcalendar.css' rel='stylesheet' />
+	<link href='dist/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+	<link href="dist/css/bryce_main.css" rel="stylesheet">
+	<link rel="stylesheet" href="dist/jq_ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+	<link href="dist/css/jquery.datepick.css" rel="stylesheet">
+	<link href="dist/css/first_page_css.css" rel="stylesheet">
+	
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+
+		  <!-- Static navbar -->
+		  <div class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+			  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Challenge Calendar</a>
+			  </div>
+			  <div class="navbar-collapse collapse">
+				<ul id="main_nav" class="nav navbar-nav">
+				  <li id="nav_profile"><a href="#profile">Profile</a></li>
+				  <li id="nav_calendar" class="active"><a href="#calendar">Calendar</a></li>
+				  <li id="nav_challenges" ><a href="#challenges">Challenges</a></li>
+				  <li id="nav_leaderboard" ><a href="#leaderboard">Leaderboard</a></li>
+				</ul>
+			  </div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		  </div>
+		<div id="dyn_content">
+		</div>
+		
+		<div id="dialog-modal" title="">
+			<div id="workoutcontent"></div>
+		  <p></p>
+		</div>
+	
+		<div id="browse_user_modal" title="">
+			<div id="users"></div>
+		  <p></p>
+		</div>
+	
+		<div id="login-modal" title="Login" style="display:none;">
+			<div id="user_login">
+			</div>
+		</div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	
+    <script src='dist/lib/moment.min.js'></script>
+	<!--<script src='dist/lib/jquery.min.js'></script>
+	<script src='dist/lib/jquery-ui.custom.min.js'></script>-->
+	<script src="dist/jq_ui/js/jquery-1.10.2.js"></script>
+	<script src="dist/jq_ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+	<script src='dist/fullcalendar/fullcalendar.min.js'></script>
+	
+	
+	<!-- Required for date picker -->
+	<script src="dist/js/jquery.plugin.min.js"></script>
+	<script src="dist/js/jquery.datepick.min.js"></script> 
+	
+	<script src="dist/js/utilities.js"></script>
+	
+<script>
+var user_id = -1;
+$(document).ready(function() {
+	login();
+	getCurrentDate();
+});
+
+$("#main_nav").on("click", "li", function() {
+	var toParse = $(this).find('a').attr('href');
+	$("ul").find("li.active").removeClass("active");
+	$(this).addClass('active');
+	console.log(toParse);
+	if(toParse == "#profiles") {
+		//getCompInfo();
+	} else if(toParse == "#calendar") {
+		buildCalendarPage();
+		renderCalendar();
+	} else if(toParse == "#challenges") {
+		//getResults();
+	} else if(toParse == "#leaderboard") {
+		//openRegistration();
+	}
+});
+
+function buildCalendarPage() {
+	var html = '';
+	
+	html += '<div id="calendar"></div><div id="eventContent" title="Event Details">';
+	html += '<div id="eventInfo"></div></div>';
+	html += '<div id="button_container">';
+	html += '<a onclick="submitWorkout()" class="btn btn-primary btn-large" id="new_core_button" class="buttons_in_but_container">Submit New Workout</a>';
+	html += ' <a onclick="updateWorkout()" class="btn btn-primary btn-large" id="new_core_button" class="buttons_in_but_container">Update Workout</a>';
+	html += ' <a onclick="submitRest()" class="btn btn-primary btn-large" id="new_rest_button" class="buttons_in_but_container">Add Rest Day</a>';
+	html += ' <a onclick="deleteWorkout()" class="btn btn-primary btn-large" id="delete_button" class="buttons_in_but_container">Delete Workout</a>';
+	html += '<p></p>';
+	html += '<a onclick="openUserModal()" class="btn btn-primary btn-large" id="client_button" class="buttons_in_but_container">Log Workout</a>';
+	html += '<a onclick="createChallenge()" class="btn btn-primary btn-large" id="challenge_button" class="buttons_in_but_container">Create a Challenge</a>';
+	html += '<p></p>';
+	html += '<form id="workout_descrip">';
+	html += '<h3>Date for workout</h3><input type="text" name="date" id="date" placeholder="YYYY-MM-DD"/>';
+	html += '<h3>Warm Up</h3><textarea rows="4" cols="100" id="warmUp" name="warmUp"></textarea><p></p>';
+	html += '<h3>Strength</h3><textarea rows="4" cols="100" id="strength" name="strength"></textarea><p></p>';
+	html += '<h3>Conditioning</h3><textarea rows="4" cols="100" id="conditioning" name="conditioning"></textarea>';
+	html += '<p></p>';
+	html += '<h3>Speed</h3><textarea rows="4" cols="100" id="speed" name="speed"></textarea><p></p>';
+	html += '<h3>Core</h3><textarea rows="4" cols="100" id="core" name="core"></textarea><p></p>';
+	html += '</form></div>';
+	
+	$("#dyn_content").html(html);
+	$("#date").datepick({
+		dateFormat: 'yyyy-mm-dd', alignment: 'bottom', changeMonth: false, autoSize: true
+	});
+}
+	
+var today = new Date();
+function getCurrentDate()
+{
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	
+	if(dd<10) {
+		dd='0'+dd;
+	} 
+	
+	if(mm<10) {
+		mm='0'+mm;
+	} 
+	today = yyyy+'-'+mm+'-'+dd;
+}
+	
+
+function renderCalendar() {
+
+	$('#calendar').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		defaultDate: today,
+		selectable: true,
+		selectHelper: true,
+		editable: false,
+		eventSources: 
+		[
+			{
+				url: '/CRUD/challenge_calendar/getWorkouts.php',
+				type: 'POST',
+				data: { "date" : "2014-05-05", "uid":user_id },
+				datatype: 'json',
+				success: function(data) {
+					//console.log("logged workout: " + data + ", title? ");
+				},
+				error: function(data) {
+					console.log("Error workouts: " + data);
+				},
+				textColor: 'black'
+			},
+			{
+				url: '/CRUD/challenge_calendar/getWorkoutLog.php',
+				type: 'POST',
+				data: { "id" : user_id },
+				datatype: 'json',
+				success: function(data) {
+					console.log("log data: " + data + "");
+				},
+				error: function(data) {
+					console.log("Error loading workout logs: " + data);
+					getLog();
+				},
+				textColor: 'black'
+			},
+			{
+				url: '/CRUD/challenge_calendar/getChallenges.php',
+				type: 'POST',
+				data: { "id" : user_id },
+				datatype: 'json',
+				success: function(data) {
+					console.log("log data: " + data + "");
+				},
+				error: function(data) {
+					console.log("Error loading challenges: " + data);
+					//getLog();
+				},
+				textColor: 'black'
+			},
+		],
+
+		eventRender: function (event, element) {
+			element.attr('href', 'javascript:void(0);');
+			console.log(event.challenge_id);
+			if(typeof event.challenge_id === "undefined") {
+				event.challenge_id = -1;
+			} 
+			height = -1;
+			width = -1;
+			element.attr('onclick', 'openModal("' + event.title + '","' + event.description + '","'+event.challenge_id+'","'+height+'","'+width+'");');
+		}
+	});
+}
+	
+function submitWorkout() {
+	var c_date = $("#date").val();
+	if(c_date.length > 0) {
+		var form_data = $("#workout_descrip").serializeArray();
+		var runningTotal = 0;
+		form_data.push({name:"uid", value:user_id});
+		$.each(form_data, function(i, field){
+			
+			runningTotal += field.value.length;
+			console.log(runningTotal);
+			field.value = replaceSemiColon(field.value);
+		});
+		if(runningTotal > 15) {
+			$.ajax(
+			{ 
+				type:"POST",                                     
+				url:"/CRUD/challenge_calendar/insertWorkout.php",         
+				data: form_data,
+				dataType: "text",
+				success: function(response) {
+					console.log(response);
+					$('#calendar').fullCalendar('refetchEvents');
+					clearInputs("woIn");
+					alert("Successfully inserted your workout!");
+				},
+				error: function(){
+					alert('error inserting workout!');
+				}
+			});
+		} else {
+			alert("Please put something in the text boxes...");
+		}
+	} else {
+		alert("Please select a date!");
+	}
+}
+
+function submitRest() {
+
+	var form_data = $("#workout_descrip").serializeArray();
+	form_data.push({name:"rest", value:"T"});
+	form_data.push({name:"uid", value:user_id});
+	$.ajax(
+	{ 
+		type:"POST",                                     
+		url:"/CRUD/challenge_calendar/insertRest.php",         
+		data: form_data, 
+		dataType: "text",      
+		success: function(response)
+		{
+			console.log(response);
+			$('#calendar').fullCalendar('refetchEvents');
+			alert("Successfully added your rest day!");
+		},
+		error: function(){
+			alert('error inserting rest day!');
+		}
+	});
+}
+
+function updateWorkout() {
+
+	var c_date = $("#date").val();
+	if(c_date.length > 0) {
+		var form_data = $("#workout_descrip").serializeArray();
+		
+		form_data.push({name:"uid", value:user_id});
+		$.each(form_data, function(i, field){
+			field.value = replaceSemiColon(field.value);
+		});
+
+		$.ajax(
+		{ 
+			type:"POST",                                     
+			url:"/CRUD/challenge_calendar/updateWorkout.php",         
+			data: form_data,
+			dataType: "text",
+			success: function(response) 
+			{
+				console.log(response);
+				$('#calendar').fullCalendar('refetchEvents');
+				clearInputs("woIn");
+				alert("Successfully updated your workout log!");
+			},
+			error: function(){
+				alert('error updating workout!');
+			}
+		});
+	} else {
+		alert("Please select a date!");
+	}
+}
+
+function submitClientLog() {
+
+	var c_date = $("#date_client").val();
+	if(c_date.length > 0) {
+		var form_data = $("#client_workout_descrip").serializeArray();
+		form_data.push({name:"id", value:user_id});
+		
+		$.each(form_data, function(i, field){
+			console.log("DATA: " + field.name + " : " + field.value);
+			field.value = replaceSemiColon(field.value);
+		});
+		
+		$.ajax(
+		{ 
+			type:"POST",                                     
+			url:"/CRUD/challenge_calendar/insertWorkoutLog.php",         
+			data: form_data,
+			dataType: "text", 
+			success: function(response) {
+				console.log(response);
+				if(response.indexOf("1") < 0) {
+					$( "#dialog-modal" ).dialog("close");
+					clearInputs("wolIn");
+					alert("Successfully updated your workout log!");
+					renderCalendar();
+				}
+			},
+			error: function(){
+				alert('error inserting workout log!');
+			}
+		});
+	} else {
+		alert("Please select a date!");
+	}	
+}
+
+
+function openUserModal(title) {
+
+    $( "#dialog-modal" ).dialog({
+      height: 500,
+	  width: 800,
+      modal: true
+    });
+	var html = "";
+	
+	html += '<form id="client_workout_descrip"><h3>Date for workout</h3>';
+	html += '<input type="text" name="date" id="date_client" placeholder="YYYY-MM-DD"/>';
+	html += '<h3>Strength</h3><textarea rows="4" cols="100" id="strength" name="strength"></textarea><p></p>';
+	html += '<h3>Conditioning</h3><textarea rows="4" cols="100" id="conditioning" name="conditioning"></textarea><p></p>';
+	html += '<h3>Speed</h3><textarea rows="4" cols="100" id="speed" name="speed"></textarea><p></p>';
+	html += '<h3>Core</h3><textarea rows="4" cols="100" id="core" name="core"></textarea><p></p>';
+	html += '</form>';
+	html += '<a onclick="submitClientLog()" class="btn btn-primary btn-large" id="client_log_button" class="buttons_in_but_container">Submit Log</a>';
+	
+	$( "#dialog-modal" ).dialog('option', 'title', title);
+	$('#workoutcontent').html(html);
+	
+	$("#date_client").datepick({
+		dateFormat: 'yyyy-mm-dd', alignment: 'bottom', changeMonth: false, autoSize: true
+	});
+}
+
+function replaceSemiColon(str) {
+	
+	var t_string = "";
+	var t_index = t_string.indexOf(";");
+
+	t_string = str.replace(/;/g, "<p></p>");	
+	return t_string;
+}
+
+function openModal(title, info, ch_id, height, width) {
+    (height > 0) ? height : height = 400;
+	(width > 0) ? width : width = 300;
+	$( "#dialog-modal" ).dialog({
+      height: height,
+	  width: width,
+      modal: true
+    });
+	$( "#dialog-modal" ).dialog('option', 'title', title);
+	
+	if(ch_id > 0) {
+		info += '<a onclick="viewChallengeDetails('+ch_id+')" class="btn btn-primary btn-large" ';
+		info += 'id="challenge_details_button" >Challenge Details</a>';
+	}
+	$('#workoutcontent').html(info);
+}
+
+function browseUsers() {
+    var title = "Browse Users";
+	$( "#browse_user_modal" ).dialog({
+      height: 400,
+	  width: 400,
+      modal: true
+    });
+	$( "#browse_user_modal" ).dialog('option', 'title', title);
+	
+	var info = "You have no choice but to challenge everyone at this point in development...";
+	
+	$('#users').html(info);
+}
+
+function pickRandomUser() {
+	alert("You have no choice but to challenge everyone at this point in development...");
+}
+
+function getLog() {
+	console.log("getting logs...");
+	$.ajax(
+	{ 
+		type:"POST",                                     
+		url:"getWorkoutLog.php",         
+		data: { "id" : user_id },
+		dataType: "text",  
+		success: function(response)
+		{
+			console.log(response);
+		}
+	});
+}
+
+function deleteWorkout() {
+	
+	var c_date = $("#date").val();
+	$.ajax(
+	{ 
+		type:"POST",                                     
+		url:"/CRUD/challenge_calendar/deleteWorkout.php",         
+		data: {"uid":user_id, "c_date":c_date}, 
+		dataType: "text",      
+		success: function(response)
+		{
+			console.log(response);
+			if(response.indexOf("1") < 0) {
+				$('#calendar').fullCalendar('refetchEvents');
+				alert("Successfully deleted workout!");
+			} else { 
+				alert('error deleting workout!');
+			}
+		},
+		error: function(){
+			alert('error inserting rest day!');
+		}
+	});
+}
+
+function viewChallengeDetails(id) {
+	$( "#dialog-modal" ).dialog("close");
+	//alert("Viewing challenge ID: " + id);
+	
+	$("ul").find("li.active").removeClass("active");
+	$("#nav_challenges").addClass("active");
+	$.ajax({
+		type: "POST",
+		url: "/CRUD/challenge_calendar/getChallengeDetails.php",
+		data: {"id":id, "uid":user_id},
+		dataType: "html",
+		success: function(response) {
+			var t_var = response.substring(response.indexOf("****")+4);
+			var accDec = t_var.substring(0,1);
+			var type = t_var.substring(t_var.indexOf("?")+1,t_var.indexOf("?")+2);
+			var challenger_id = t_var.substring(t_var.indexOf("?")+3);
+			$("#dyn_content").html(response.substring(0,response.indexOf("****")));
+			if(accDec.trim() == "e") {
+				$("#dyn_content").append('<br><a onclick="acceptChallenge('+id+')" class="btn btn-primary btn-large" id="acc_cal_button">Accept Challenge</a>');
+				$("#dyn_content").append(' <a onclick="declineChallenge('+id+')" class="btn btn-primary btn-large" id="dec_cal_button">Decline Challenge</a>');
+			} else if (accDec.trim() == "a") {
+				$("#dyn_content").append('<br><a onclick="inputScore('+id+','+type+')" class="btn btn-primary btn-large" id="sub_score_button">Submit Score</a>');
+			} 
+			if(challenger_id.trim() == user_id) {
+				$("#dyn_content").append('<br><a onclick="updateChallenge('+id+')" class="btn btn-primary btn-large" id="update_challenge_button">Update Challenge</a>');
+			}
+			$("#dyn_content").append(' <a onclick="backToCalendar()" class="btn btn-primary btn-large" id="b2cal_button">Back To Calendar</a>');
+		}
+	});
+}
+
+function backToCalendar() {
+	$("#nav_calendar").addClass("active");
+	$("ul").find("li.active").removeClass("active");
+	buildCalendarPage();
+	renderCalendar();
+}
+
+function acceptChallenge(id) {
+	console.log("ACCEPT UID: " +user_id + ", CID: " + id);
+	
+	$.ajax({
+		type: "POST",
+		url: "/CRUD/challenge_calendar/acceptChallenge.php",
+		data: { "uid":user_id, "cid":id },
+		dataType: "text",
+		success: function(response) {
+			if(response.trim() == "0") {
+				alert("Challenge ACCEPTED");
+			} else if(response.trim() == "3") {
+				alert("You must accept challenges either the day of or before the challenge date!");
+			} else {
+				alert("Error accepting challenge, please refresh your browser and try again!");
+			}
+		}
+	});
+}
+
+function declineChallenge(id) {
+	console.log("UID: " +user_id + ", CID: " + id);
+	
+	$.ajax({
+		type: "POST",
+		url: "/CRUD/challenge_calendar/declineChallenge.php",
+		data: { "uid":user_id, "cid":id },
+		dataType: "text",
+		success: function(response) {
+			if(response.trim() == "0") {
+				alert("Challenge Declined. Pussy.");
+			} else if(response.trim() == "3") {
+				alert("You must decline challenges either the day of or before the challenge date!");
+			} else {
+				alert("Error declining challenge, I guess you'll just have to accept it!");
+			}
+		}
+	});
+}
+
+function getChallenges() {
+	
+	$.ajax({
+		url: '/CRUD/challenge_calendar/getChallenges.php',
+		type: 'POST',
+		data: { "id" : user_id },
+		datatype: 'json',
+		success: function(data) {
+			console.log("log data: " + data + "");
+			listChallenges(data);
+		},
+		error: function(data) {
+			console.log("Error loading challenges: " + data);
+		}
+	});
+}
+
+function listChallenges(data) {
+	console.log(data);
+}
+
+/*
+ * 
+ * @param data: the id of the challenge
+ * @param type: the type of measurement for scoring (time, total reps, or weight) 
+ */
+function inputScore(data, type) {
+	var html = 'Score:';
+	if(type == 1) {
+		//method to construct dropdowns
+		html += generateTimeDropDowns(1,1,1);
+	} else {
+		html += ' <input type="text" name="score" id="score">';
+	}
+	html += '<br><br><a onclick="submitScore('+data+','+type+')" class="btn btn-primary btn-large" id="submit_score_button">Submit</a>';
+	openModal("Submit Score", html, -1, -1, -1);
+}
+
+function submitScore(data, type) {
+	//console.log(data + ", "+ type);
+	var sendRequest = false;
+	var num_reg = /^[0-9]*$/;
+	var display_score = "";
+	var actual_score = 0;
+	if(type == 1) {
+		var hrs = 0;
+		var min = 0;
+		var sec = 0;
+		display_score = $("#rft_hr_selector").val() + ":"+$("#rft_min_selector").val() + ":"+$("#rft_sec_selector").val();
+		hrs = parseInt($("#rft_hr_selector").val());
+		min = parseInt($("#rft_min_selector").val());
+		//hours to seconds
+		actual_score = (hrs * 60 * 60);
+		//minutes to seconds
+		actual_score += (min * 60);
+		//add seconds to score
+		actual_score += parseInt($("#rft_sec_selector").val());
+		console.log(display_score + " vs " + actual_score);
+	} else {
+		display_score = actual_score = $("#score").val();
+		if(!num_reg.test(display_score)) {
+			$("#score").addClass("input_error");
+			sendRequest = false;
+		} else {
+			$("#score").removeClass("input_error");
+			sendRequest = true;
+		}
+	}
+	
+	$.ajax({
+		type: "POST",
+		url : "/CRUD/challenge_calendar/submitScore.php",
+		data: { "cid": data, 
+				"uid": user_id, 
+				"display": display_score,
+				"actual": actual_score
+			},
+		dataType: "text",
+		success: function(response) {
+			console.log(response);
+			viewChallengeDetails(data);
+		}
+	});
+	
+}
+
+function createChallenge() {
+	console.log("Create challenge");
+	var html = '';
+	
+	html = '<h4>Basics</h4><input type="text" name="chall_title" id="chall_title" placeholder="Title"/><br><br>';
+	html += '<input type="text" name="chall_start" id="chall_start" placeholder="Start Date"/><br><br>';
+	html += '<input type="text" name="chall_end" id="chall_end" placeholder="End Date"/><br><br>';
+	html += '<h4>Who to challenge...?</h4><div id="challengees"></div>';
+	html += '<br><br><a onclick="browseUsers()" class="btn btn-primary btn-large" id="browse_users_button">Browse Users</a>';
+	html += '<a onclick="pickRandomUser()" class="btn btn-primary btn-large" id="random_users_button">I\'m Feeling Lucky</a>';
+	html += '<h4>What is the challenge...?</h4>';
+	html += 'How to score: <select id="how_to_score"><option value="1">Fastest Time</option>';
+	html += '<option value="2">Total Reps</option><option value="3">Total Weight</option></select><br>';
+	html += 'Details:<br><br><textarea rows="6" cols="50" name="challenge_txt_details" id="challenge_txt_details"></textarea>';
+	html += '<br><br><a onclick="submitChallenge()" class="btn btn-primary btn-large" id="submit_challenge_button">Create</a>';
+	html += ' <a onclick="cancelChallenge()" class="btn btn-primary btn-large" id="cancel_challenge_button">Cancel</a>';	
+
+	openModal("New Challenge", html, -1, 500, 600);
+	
+	$("#chall_start").datepick({
+		dateFormat: 'yyyy-mm-dd', alignment: 'bottom', changeMonth: false, autoSize: true
+	});
+	$("#chall_end").datepick({
+		dateFormat: 'yyyy-mm-dd', alignment: 'bottom', changeMonth: false, autoSize: true
+	});
+}
+
+/*
+ *
+ * @param data - The ID of the challenge being updated
+ */
+function updateChallenge(data) {
+	console.log("Update challenge");
+	var html = '';
+	
+	$.ajax({
+		type: "POST",
+		url: "/CRUD/challenge_calendar/getChallengeDetailsToUpdate.php",
+		data: {"id":data},
+		dataType: "html",
+		success: function(response) {
+			console.log(response);
+			openModal("Update Challenge", response, -1, 500, 600);
+	
+			$("#up_chall_start").datepick({
+				dateFormat: 'yyyy-mm-dd', alignment: 'bottom', changeMonth: false, autoSize: true
+			});
+			$("#up_chall_end").datepick({
+				dateFormat: 'yyyy-mm-dd', alignment: 'bottom', changeMonth: false, autoSize: true
+			});
+		}
+	})
+	
+	
+}
+
+function cancelChallenge() {
+	$( "#dialog-modal" ).dialog("close");
+}
+
+function submitChallenge() {
+	var data = new Array();
+	var title = $("#chall_title").val();
+	var start = $("#chall_start").val();
+	var end = $("#chall_end").val();
+	var challengees = "1,2,3,4,5,6";
+	var score_by = $("#how_to_score").val();
+	var details = $("#challenge_txt_details").val();
+	
+	data.push({name:"challenger_id", value:user_id});
+	data.push({name:"title", value:title});
+	data.push({name:"start", value:start});
+	data.push({name:"end", value:end});
+	data.push({name:"challengees", value:challengees});
+	data.push({name:"score_by", value:score_by});
+	data.push({name:"details", value:details});
+	
+	$.ajax({
+		type: "POST",
+		url: "/CRUD/challenge_calendar/submitChallenge.php",
+		data: data,
+		dataType: "text",
+		success: function(response) {
+			console.log(response);
+		}
+	});
+	
+}
+
+function submitChallengeUpdate(id) {
+	var data = new Array();
+	var title = $("#chall_title").val();
+	var start = $("#up_chall_start").val();
+	var end = $("#up_chall_end").val();
+	var challengees = "1,2,3,4,5,6";
+	var score_by = $("#how_to_score").val();
+	var details = $("#challenge_txt_details").val();
+	
+	data.push({name:"challenge_id", value:id});
+	data.push({name:"challenger_id", value:user_id});
+	data.push({name:"title", value:title});
+	data.push({name:"start", value:start});
+	data.push({name:"end", value:end});
+	data.push({name:"challengees", value:challengees});
+	data.push({name:"score_by", value:score_by});
+	data.push({name:"details", value:details});
+	
+	$.ajax({
+		type: "POST",
+		url: "/CRUD/challenge_calendar/submitChallengeUpdate.php",
+		data: data,
+		dataType: "text",
+		success: function(response) {
+			console.log("submitChallengeUpdate: "+response);
+			if(response == 0) {
+				alert("Successfully updated challenge!");
+				$( "#dialog-modal" ).dialog("close");
+				viewChallengeDetails(id)
+			} else {
+				alert("Error updating challenge! Code: " + response);
+			}
+		}
+	});
+	
+}
+
+	/***** Login stuff - keep at bottom *****/
+	function login(data) {
+		if(user_id == -1) {
+			var html = '<p>Please login:</p>';
+			if(data == 0) {
+				html += '<input type="text" name="username" id="username" placeholder="Username"/><br>';
+				html += '<input type="password" name="password" id="password" placeholder="Password"/><br>';
+				html += '<p class="invalid_credentials">Invalid credentials! Try agin</p>';
+			} else {
+				html += '<input type="text" name="username" id="username" placeholder="Username"/><br>';
+				html += '<input type="password" name="password" id="password" placeholder="Password"/><br>';
+			}
+			html += '<br><button class="btn btn-success" onclick="checkCredentials();">Login</button>';
+			
+			$( "#login-modal" ).dialog({
+			  height: 320,
+			  width: 400,
+			  modal: true
+			});
+			$( "#login-modal" ).dialog();
+			$("#user_login").html(html);
+		} else {
+			getCompInfo(user_id);
+		}
+	}
+	
+	function checkCredentials() {
+		var t_html = "Logging in...";
+		var username = $("#username").val();
+		var password = $("#password").val();
+		$.ajax({
+			type:"POST",
+			url: "/CRUD/challenge_calendar/checkCredentials.php",
+			data: {"un":username, "pw":password},
+			datatype: "text",
+			success: function(response) {
+				console.log("Check credentials response: " +response);
+				if(response == 0) {
+					login(response);
+				} else {
+					$( "#login-modal" ).dialog('close');
+					user_id = response;
+					buildCalendarPage();
+					renderCalendar();
+				}
+			}
+		});
+	}
+
+	function clearInputs(s) {
+		if(s == "woIn") {
+			$(':input','#workout_descrip')
+			 .not(':button, :submit, :reset, :hidden')
+			 .val('')
+			 .removeAttr('checked')
+			 .removeAttr('selected');
+		 } else if(s == "wolIn") {
+			$(':input','#client_workout_descrip')
+			 .not(':button, :submit, :reset, :hidden')
+			 .val('')
+			 .removeAttr('checked')
+			 .removeAttr('selected');
+		 }
+	}
+
+	</script>
+  </body>
+</html>
+	

@@ -1,0 +1,423 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {
+    width: 100% !important;
+}
+
+body
+	{
+		width: 100% !important;
+		height: 900px !important;
+		background:#5C5C5C !important;
+}
+
+#display_workout {
+	max-width: 500px;
+}
+
+#my_container {
+	width: 1224px !important;
+	margin-left: auto  !important;
+	margin-right: auto !important;
+	margin-top: 100px  !important;
+	position: relative  !important;
+	max-height: 1000px  !important;
+	height: 800px !important;
+}
+
+#my_data_container {
+	position: relative !important;
+	width: 1224px !important;
+	height: 792px !important;
+	top: -792px !important;
+	visibility: inherit;
+	
+}
+
+#what_to_compare {
+	position: relative;
+	width: 265px;
+	top: 125px;
+	height: 355px;
+	color: #FFF !important;
+	
+}
+
+#compare_but {
+	color: #000000;
+}
+#navbar_main_temp {
+	display: inline;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	position: relative;
+	font-size: medium;
+}
+
+#navbar_main ul {
+	list-style-type: none;
+	text-align: right;
+	position: absolute;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 0px;
+	padding-top: 11px;
+	left: -81px;
+	width: 1280px;
+	top: 29px;
+	z-index: 1 !important;
+	} 
+ 
+#navbar_main ul li {
+	display: inline;
+	margin-top: 0px;
+	padding-left: 33px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	position: relative;
+	top: 37px;
+	margin-left: 4px;
+	left: -19px;
+	font-size: medium;
+	z-index:1251;
+	} 
+ 
+#navbar_main ul li a {
+	text-decoration: none;
+	color: #fff;
+	padding-bottom: .2em;
+	padding-left: 32px;
+	padding-right: 0.5em;
+	padding-top: .2em;
+	} 
+ 
+#navbar_main ul li a:hover { 
+
+	} 
+ 
+
+#navbar_main_ul li:nth-child(1) a {
+	color: #FFF;
+	padding-left: 0px;
+	margin-left: -12px;
+	left: 0px;
+	width: auto;
+	margin-top: -12px;
+	margin-right: -20px;
+	margin-bottom: -12px;
+}
+
+#navbar_main_ul li:nth-child(2) a {
+	color: #FFF;
+	margin-top: 5px;
+	margin-right: -7px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+
+#navbar_main_ul li:nth-child(3) a {
+	color: #FFF;
+	margin-top: 11px;
+	margin-right: 2px;
+	margin-bottom: 11px;
+	margin-left: 11px;
+}
+
+#navbar_main_ul li:nth-child(4) a {
+	color: #FFF;
+	margin-right: -20px;
+}
+#navbar_main_ul li:nth-child(5) a {
+	color: #FFF;
+	margin-right: -4px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+	
+#navbar_main ul li.active a{
+	color: rgb( 121, 0, 0 );
+	font-size:larger;	
+	}
+	
+	
+#wod_list {
+	height: 208px;
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: auto;
+	position: absolute;
+	top: 125px;
+	width: 555px;
+	left: 267px;
+	color: #FFF;
+}
+
+#search_but {
+	color: #000000;	
+}
+
+#leaderboard {
+	position: absolute;
+	top: 375px;
+	left: 850px;
+	width: 374px;
+	height: 400px;
+	overflow: auto;
+}
+
+#leaderboard_headers {
+	font-size: large;
+	color: #fff;
+}
+
+#wod_description { 
+	position: absolute;
+	top: 125px;
+	left: 850px;
+	width: 374px;
+	height: 667px;
+	color: #000;
+}
+
+#wod_description { 
+	font-size: 18px;
+}
+
+#average_user_score {
+	position: absolute;
+	top: 500px;
+	left: 11px;
+	width: 250px;
+	height: 250px;
+	color: #FFF;
+}
+
+#avg_score_header {
+	font-size: 36px;
+}
+
+#avg_score {
+	font-size: 28px;
+}
+
+#tbl_leaderboard {
+	background-color:#eee;
+	border-collapse:collapse;
+}
+
+#tbl_leaderboard th {
+	background-color:#000;
+	color:white;
+	width:50%;
+}
+
+#tbl_leaderboard th, td {
+	padding:5px;
+	border:1px solid #000;
+}
+
+#chart_div {
+	position: relative;
+	width: 500px;
+	top: -1210px;
+	left: 290px;
+	z-index:1 !important;
+}
+
+#dialog-modal {
+	z-index: 9999 !important;
+}
+
+.bar rect { fill: blue;}
+.focus-label, .focus {fill: orange;}
+.domain {stroke: #999; fill: none; }
+.axis-label {fill: #666;}
+.tick line {stroke: #999;}
+
+.tbl_body_wod_list {
+	padding-left: 0px;
+	margin-left: 0px;
+	position: relative;
+	bottom: 0px;
+}
+
+.tdDivNameOfAthlete {
+	padding-left: 10px;
+	color: #000;
+}
+
+.tdDivScore {
+	padding-left: 10px;
+	color: #000;
+}
+
+#what_if_but {
+	color: #000;
+}
+
+#tbl_wod_list {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-spacing: 0px 0px;
+	border-collapse: separate;
+	border-color: #000000;
+	border-style: solid;
+	margin-left: 12px;
+	padding-left: 0px;
+	display: inline-table;
+	text-align: left;
+	text-decoration: none;
+	overflow-y: scroll;
+	position: relative;
+	width: 524px;
+	max-width: 524px;
+}
+
+td{
+	padding: 6px;
+	max-height: 200px;
+	max-width:800px;
+	min-width:100px;
+}
+
+.tdDivBox
+{
+    width: 100%;
+    height: 100%;
+}
+.tdDivBox a
+{
+    width: 100%;
+    height: 100%;
+    display: block;
+}	
+
+.radio_butts {
+	width: 0px;
+	/*float:left !important;*/
+}
+
+.navactive {
+	font-size:larger !important;	
+}
+
+.a {
+	color: #0F0;	
+}
+
+img {
+	z-index: -1;
+}
+
+rect.highlight {
+    fill: purple;
+}
+
+.long_description{
+	overflow-y: scroll !important;
+	}
+	
+/*----- Tabs -----*/
+.tabs {
+    width:100%;
+    display:inline-block;
+}
+ 
+/*----- Tab Links -----*/
+/* Clearfix */
+.tab-links:after {
+	display:block;
+	clear:both;
+	content:'';
+}
+
+.tab-links li {
+	margin:0px 5px;
+	float:left;
+	list-style:none;
+}
+ 
+.tab-links a {
+	padding:9px 15px;
+	display:inline-block;
+	border-radius:3px 3px 0px 0px;
+	background:#7FB5DA;
+	font-size:16px;
+	font-weight:600;
+	color:#4c4c4c;
+	transition:all linear 0.15s;
+}
+ 
+.tab-links a:hover {
+	background:#a7cce5;
+	text-decoration:none;
+}
+ 
+.tab-links li.active a, li.active a:hover {
+	background:#fff;
+	color:#4c4c4c;
+}
+
+/*----- Content of Tabs -----*/
+.tab-content {
+	padding:15px;
+	border-radius:3px;
+	box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+	background:#fff;
+}
+ 
+.tab {
+	display:none;
+}
+
+.tab.active {
+	display:block;
+}
+
+.descrip {
+	width: 49%;
+	float: left;
+}
+.whatIfdescrip {
+	width: 49%;
+	float: right;
+}
+.input_error {
+	border-color: #FF0004 !important;
+}
+
+.athleteOpenSearchRow:hover {
+	cursor: pointer;
+	background: yellow;
+} 
+
+.athleteOpenSearchHeaders { 
+	text-align: center;
+	border: 1px solid black;
+	background-color: black;
+	color: white;
+}
+
+.whatIfWorse {
+	border-color: #FF0004 !important;
+}
+
+.whatIfBetter {
+	border-color: #00FF00 !important;
+}
+
+.indent_me {
+	text-indent: 25px;
+}
+
+.filters {
+	height:100%;
+	width:32%;
+	padding: 1%;
+	float: left;
+}
+
+.filter_border {
+	/*border: 2px solid black;
+	border-radius: 2px;*/
+}

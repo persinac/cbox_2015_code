@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+tr.sec1_data > td {
+	padding-left: 0px;
+	padding-top: 35px;
+	margin-top: 0px;
+	padding-right: 102px;
+
+}
+tr.sec2 > td {
+	padding-left: 0px;
+	padding-top: 35px;
+	padding-right: 102px;
+
+}
+tr.sec3 > td {
+	padding-left: 0px;
+	padding-top: 35px;
+	padding-right: 70px;
+}

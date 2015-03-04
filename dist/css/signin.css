@@ -1,0 +1,104 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+#region_selector {
+	position: relative;
+	width: 300px;
+	
+}
+#email { width: 250px !important;}
+#box_name { width: 250px !important;}
+#forgot_username { float:left; }
+#forgot_password { float:right; }
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.success{
+	color: #009900;
+}
+.error{
+	color:#F33C21;
+}
+
+.username_avail_result{
+	display: block;
+	width: 180px;
+	position: relative;
+	top: 841px;
+	left: 780px;
+}
+
+#password_str_container {
+	width: 500px;
+	position: absolute;
+	top: 271px;
+	
+}
+
+.password_strength {
+	display: block;
+	width: 180px;
+	padding: 3px;
+	text-align: center;
+	color: #333;
+	font-size: 12px;
+	backface-visibility: #FFF;
+	font-weight: bold;
+	position: relative;
+	top: 892px;
+	left: 780px;
+}
+/* Password strength indicator classes weak, normal, strong, verystrong*/
+.password_strength.weak{
+	background:#e84c3d;
+}
+.password_strength.normal{
+	background:#f1c40f;
+}
+.password_strength.strong{
+	background:#27ae61;
+}
+.password_strength.verystrong{
+	background:#2dcc70;
+	color:#FFF;
+}
+
+._input_error{
+	border-color: #FF0004 !important;
+}

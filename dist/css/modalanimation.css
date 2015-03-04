@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   speak for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none !important;
+    position:   fixed !important;
+    z-index:    2000 !important;
+    top:        50% !important;
+    left:       50% !important;
+    height:     100% !important;
+    width:      100% !important;
+    background: rgba( 255, 255, 255, .8 ) !important;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden 
+body.loading {
+    overflow: hidden;   
+}
+*/
+/* Anytime the body has the loading class, our
+   modal element will be visible 
+body.loading .modal {
+    display: block;
+}
+*/
+.toDisplay {
+	position:   fixed !important;
+    z-index:    2000 !important;
+    top:        50% !important;
+    left:       50% !important;
+    height:     100% !important;
+    width:      100% !important;
+    background: rgba( 255, 255, 255, .8 ) !important;
+}

@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+
+#navbar_main {
+	top: 20px;
+	right: 35px;
+	position: relative;
+}
+
+#navbar_main ul {
+	list-style-type: none;
+	text-align: right;
+	
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: medium;
+	z-index:1551;
+}
+
+#navbar_main ul li {
+	display: inline;
+}
+
+#cust_billing {
+	position: relative;
+	border: 2px solid #a1a1a1;
+    padding: 10px 40px; 
+    background: #dddddd;
+    width: 40%;
+	height: 60%;
+    border-radius: 5px;
+	overflow: auto;
+}
+
+#cust_cc {
+	position: relative;
+	top: 61%;
+	border: 2px solid #a1a1a1;
+    padding: 10px 40px; 
+    background: #dddddd;
+    width: 40%;
+	height: 40%;
+    border-radius: 5px;
+	overflow: auto;
+}
+
+#cust_subscriptions {
+	position: relative;
+	border: 2px solid #a1a1a1;
+    padding: 10px 40px; 
+    background: #dddddd;
+	top: -576px;
+	left: 41%;
+    width: 59%;
+	height: 60%;
+    border-radius: 5px;
+	overflow: auto;
+}
+
+#tbl_past_wod {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-spacing: 0px 0px;
+	border-collapse: separate;
+	border-color: #000000;
+	border-style: solid;
+	margin-left: 12px;
+	padding-left: 0px;
+	display: inline-table;
+	text-align: left;
+	text-decoration: none;
+	overflow-y: scroll;
+}
+
+td{
+	padding: 6px;
+	max-height: 200px;
+	max-width:800px;
+	min-width:100px;
+}
+
+#cc_exp_month {
+	width: 50px;
+}
+#cc_exp_year {
+	width: 50px;
+}

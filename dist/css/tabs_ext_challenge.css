@@ -1,0 +1,14 @@
+/* Custom tab styling for Challenge Calendar */
+.tab-links-custom {
+	position: fixed;
+	width: 150px;
+}
+
+.tab-content-custom {
+	width: 940px;
+	float: right;
+}
+
+.tab-width-custom {
+	min-width: 1100px;
+}

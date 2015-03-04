@@ -1,0 +1,265 @@
+@charset "utf-8";
+/* CSS Document */
+
+#past_wods {
+	height: 200px;
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+
+input {
+	min-height: 24px !important;
+}
+
+.tbl_body_past_wods {
+	padding-left: 0px;
+	margin-left: 0px;
+	position: relative;
+	bottom: 0px;
+}
+
+#tbl_past_wod {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-spacing: 0px 0px;
+	border-collapse: separate;
+	border-color: #000000;
+	border-style: solid;
+	margin-left: 12px;
+	padding-left: 0px;
+	display: inline-table;
+	text-align: left;
+	text-decoration: none;
+	overflow-y: scroll;
+}
+
+td{
+	padding: 6px;
+	max-height: 200px;
+	max-width:800px;
+	min-width:100px;
+}
+
+#past_strength {
+	height: 200px;
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+
+.tbl_body_past_str {
+	padding-left: 0px;
+	margin-left: 0px;
+	position: relative;
+	bottom: 0px;
+}
+
+#tbl_past_str {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-spacing: 0px 0px;
+	border-collapse: separate;
+	border-color: #000000;
+	border-style: solid;
+	margin-left: 12px;
+	padding-left: 0px;
+	display: inline-table;
+	text-align: left;
+	text-decoration: none;
+	overflow-y: scroll;
+}
+
+#past_post_wods {
+	height: 200px;
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: scroll;
+}
+
+.tbl_body_past_pwod {
+	padding-left: 0px;
+	margin-left: 0px;
+	position: relative;
+	bottom: 0px;
+}
+
+#tbl_past_pwod {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	border-spacing: 0px 0px;
+	border-collapse: separate;
+	border-color: #000000;
+	border-style: solid;
+	margin-left: 12px;
+	padding-left: 0px;
+	display: inline-table;
+	text-align: left;
+	text-decoration: none;
+	overflow-y: scroll;
+}
+
+#new_wod_container {
+	
+}
+
+#new_wod_form {
+	
+}
+
+#new_wod_row {
+	
+}
+
+
+#new_strength {
+	
+}
+
+#new_post_wod {
+	
+}
+
+.num_of_rounds {
+	width: 100px !important;
+}
+
+#calendar_holder {
+	position: relative;
+	top: 10%;
+	left: 5%;
+	right: 5%;	
+}
+
+#calendar { 
+	position: absolute;
+	width: 900px;
+	top: 50px;
+	left: 250px;
+}
+
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+}
+
+#overlay div {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+     text-align:center;
+}
+
+#example_modal {
+
+	position: fixed; 
+    top: 8%; 
+    right: 5%; 
+    left: 5%;
+    /*bottom:8%; */
+	width:auto !important;
+    margin: 150px;	
+}
+
+#example_modal .modal-footer {
+  height: 20%;
+  clear:both;
+}
+#example_modal .modal-header{
+  height: 15%;
+}
+#example_modal .modal-body {
+  height: 60%;
+}
+
+
+#inter_new_wod_row input[type="text"] {
+    width: 150px;
+}
+
+#novice_new_wod_row input[type="text"] {
+    width: 150px;
+}
+
+#dialog-modal {
+	z-index: 9999;
+}
+
+#button_container {
+	position: relative !important;
+	height: 300px;
+	width: 200px;
+	top: 119px;
+	left: 10px;
+	text-align: center;
+	border: 1px solid black;
+	background:#5C5C5C !important;
+}
+
+#new_wod_button {
+	position: relative;
+	top: 15px;
+	width: 155px;
+}
+
+#new_strength_button {
+	position: relative;
+	top: 15px;
+	width: 155px;
+}
+
+#new_postwod_button {
+	position: relative;
+	top: 15px;
+	width: 155px;
+}
+
+#sub_manager_button {
+	position: relative;
+	top: 15px;
+	width: 155px;
+}
+
+#navbar_main {
+	top: 20px;
+	right: 35px;
+	position: relative;
+}
+
+#navbar_main ul {
+	list-style-type: none;
+	text-align: right;
+	
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: medium;
+	z-index:1551;
+}
+
+#navbar_main ul li {
+	display: inline;
+}
+
+.buttons_in_but_container {
+	margin:10px;
+}
+
+.fc-event-time {
+  display: none;
+}
+
+.higherWider {
+   width: 900px; /* SET THE WIDTH OF THE MODAL */
+	margin: -250px 0 0 -450px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+.big_input_wod_error{
+	border-color: #FF0004 !important;
+	}
+
+ 

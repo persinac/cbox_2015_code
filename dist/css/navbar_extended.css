@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+
+.nav_extension {
+	/*float: right !important;*/
+}
+
+.nav_extension_color {
+	background-color: transparent !important;
+	border-color: transparent !important;
+}
+
+.nav_extension_position {
+	position: relative;
+	top: 120px;
+	float: right;
+}
+
+.nav_extension_admin_position {
+	position: relative;
+	float: right;
+}
