@@ -267,7 +267,7 @@ $("#main_nav").on("click", "li", function() {
 			success: function(response) //on recieve of reply
 			{
 				console.log("logged out...");
-				window.location.replace("http://cboxbeta.com/challenge");
+				window.location.replace("http://compete-box.com/challenge.php");
 			} 
 		});
 	}
@@ -1289,7 +1289,7 @@ function getGrReq(){
 				html += '<input type="password" name="password" id="password" placeholder="Password"/><br>';
 			}
 			html += '<br><button class="btn btn-success" id="login_button_1" onclick="checkCredentials();">Login</button>';
-			html += '<br><button class="btn btn-success" id="register" onclick="registerNewUser();">Register</button>';
+			html += '<br><br><button class="btn btn-success" id="register" onclick="registerNewUser();">Register</button>';
 
 			$( "#login-modal" ).dialog({
 			  height: 320,

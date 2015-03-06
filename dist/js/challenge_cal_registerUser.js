@@ -41,6 +41,20 @@ function submitNewUser() {
         dataType: "text",
         success: function(response) {
             console.log(response);
+            var json = JSON.parse(response);
+            var login = json["login"];
+            var user_info = json["user_info"];
+            var user_pub = json["user_pub"];
+            var displayString = "Registration Failed. Please Contact System Admin";
+
+            if(login == "1") {
+                if(user_info == "1") {
+                    if(user_pub == "1") {
+                        displayString = "Successfully Registered!";
+                    }
+                }
+            }
+            alert(displayString);
         }
     });
 

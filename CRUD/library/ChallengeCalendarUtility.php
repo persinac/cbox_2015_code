@@ -1,19 +1,31 @@
-<?php 
+<?php
+
+include_once('CRUD/library/log.php');
+include_once('../../CRUD/library/log.php');
+
 class ChallengeCalendarUtility {
 	public $mys;
+    public $log_obj;
 	var $chall_user_id = 0;
+    var $function = "registerNewUser";
+    var $classForLog = "ChallengeCalendarUtility";
 	
 	function NewConnection($host, $user, $pass, $database) {
+
+        $this->log_obj = new AdminLog();
 		$this->mys = mysqli_connect($host, $user, $pass, $database);
 		if (mysqli_connect_errno()) {
 			printf("Connect failed: %s\n", mysqli_connect_error());
 			exit();
 		}
+
+        $this->log_obj->NewConnection($host, $user, $pass, $database);
 	}
 	
 	function CloseConnection() {
 		try {
 			mysqli_close($this->mys);
+            $this->log_obj->CloseConnection();
 			return true;
 		} catch (Exception $e) {
 			printf("Close connection failed: %s\n", $this->mys->error);
@@ -95,9 +107,9 @@ class ChallengeCalendarUtility {
 	}
 
 	function InsertNewUser($cbox_id, $args) {
-		//echo "\n".$cbox_id .', '.$args['un'].', '.$args['pw']."\n";
-		$this->InsertIntoLogin($cbox_id, $args['un'], $args['pw']);
-		$this->InsertIntoUserInfo(
+        $toReturn = (object) array('login'=>'', 'user_info'=>'','user_pub'=>'');
+		$toReturn->login = $this->InsertIntoLogin($cbox_id, $args['un'], $args['pw']);
+        $toReturn->user_info = $this->InsertIntoUserInfo(
 			$args['first'],
 			$args['last'],
 			$args['email'],
@@ -105,39 +117,60 @@ class ChallengeCalendarUtility {
 			$args['city'],
 			$args['state']
 		);
-		$this->InsertIntoUserPubInfo($this->chall_user_id);
+        $toReturn->user_pub = $this->InsertIntoUserPubInfo($this->chall_user_id);
+        return json_encode($toReturn);
 	}
 	
 	function InsertIntoLogin($cbox_id, $un, $pw) {
-		//echo "\n$cbox_id, $un, $pw\n";
+		$returnValue = -1;
 		$stmt = $this->mys->prepare("insert into login values (?, ?, ?, ?)");
 		$stmt->bind_param( 'issi', $this->chall_user_id, $un, $pw, $cbox_id);
 		if($result = $stmt->execute()) {
+            $returnValue = 1;
 			$stmt->close();
 		} else {
-			echo "Error: Could not insert into Challenge Calendar Login";
+            $returnValue = 0;
+            //return "Error: Could not insert into Challenge Calendar Login -> " . $this->mys->error ;
 		}
+        $description = "ReturnValue (0 = fail, 1 = success): " . $returnValue . ", chall_id: " . $this->chall_user_id .", cbox_id: $cbox_id, un: $un, ps: $pw";
+        $this->function = "InsertIntoLogin";
+        $this->log_obj->InsertIntoLog($this->classForLog, $this->function, $description);
+        return $returnValue;
 	}
 	
 	function InsertIntoUserInfo($fn, $ln, $em, $gen, $city, $state) {
-		$stmt = $this->mys->prepare("insert into user_info values (?, ?, ?, ?, ?, ?, ?)");
+        $returnValue = -1;
+        $stmt = $this->mys->prepare("insert into user_info values (?, ?, ?, ?, ?, ?, ?)");
 		$stmt->bind_param( 'issssss', $this->chall_user_id, $fn, $ln, $em, $gen, $city, $state);
 		if($result = $stmt->execute()) {
-			$stmt->close();
+            $returnValue = 1;
+            $stmt->close();
 		} else {
-			echo "Error: Could not insert into Challenge Calendar User Info";
+            $returnValue = 0;
+            //return "Error: Could not insert into Challenge Calendar User Info -> " . $this->mys->error ;
 		}
+        $description = "ReturnValue (0 = fail, 1 = success): " . $returnValue . ", chall_id: " . $this->chall_user_id .", fn: $fn, ln: $ln, email: $em, gender: $gen, city: $city, state: $state";
+        $this->function = "InsertIntoUserInfo";
+        $this->log_obj->InsertIntoLog($this->classForLog, $this->function, $description);
+        return $returnValue;
 	}
 	
 	function InsertIntoUserPubInfo() {
-		$t_val = '-';
+        $returnValue = -1;
+        $t_val = '-';
 		$stmt = $this->mys->prepare("insert into user_pub_info values (?, ?, ?, ?, ?, ?)");
-		$stmt->bind_param( 'isssss', $this->chall_user_id, $t_val, $t_val, $t_val, $t_val, $t_val, $t_val);
+		$stmt->bind_param( 'isssss', $this->chall_user_id, $t_val, $t_val, $t_val, $t_val, $t_val);
 		if($result = $stmt->execute()) {
-			$stmt->close();
+            $returnValue = 1;
+            $stmt->close();
 		} else {
-			echo "Error: Could not insert into Challenge Calendar User Pub Info";
+            $returnValue = 0;
+            //return "Error: Could not insert into Challenge Calendar User Pub Info -> " . $this->mys->error ;
 		}
+        $description = "ReturnValue (0 = fail, 1 = success): " . $returnValue . " chall_id: " . $this->chall_user_id ."";
+        $this->function = "InsertIntoUserPubInfo";
+        $this->log_obj->InsertIntoLog($this->classForLog, $this->function, $description);
+        return $returnValue;
 	}
 
 	function UpdateUserGoal($gid, $targ, $comp, $act, $curr) {

@@ -33,11 +33,15 @@ class User {
     }
 
     function __construct($id = -1, $host = "", $user = "", $pass = "", $database = "") {
-        $this->id = $id;
-        $this->host = $host;
-        $this->host = $user;
-        $this->host = $pass;
-        $this->host = $database;
+        if($id > 0) {
+            $this->id = $id;
+            $this->host = $host;
+            $this->user = $user;
+            $this->pass = $pass;
+            $this->database = $database;
+        } else {
+            $this->registerNewUser();
+        }
     }
 
     function SetUserID($i) {
@@ -64,8 +68,16 @@ class User {
     {
 
     }
-}
-class NewUser extends User
-{
 
+    function registerNewUser() {
+        $newID = $this->GetMaxUserID();
+    }
+
+    function GetMaxUserID() {
+
+    }
+
+    function insertNewUser() {
+
+    }
 }
