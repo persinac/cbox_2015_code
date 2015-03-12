@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!(isset($_SESSION['MM_Username'])))
+if(!(isset($_SESSION['MM_Admin'])))
 {
 	header("Location: Error401UnauthorizedAccess.php");
 }
@@ -27,7 +27,6 @@ if(!(isset($_SESSION['MM_Username'])))
 	<!-- Calendar stuff -->
 	<link href='dist/fullcalendar/fullcalendar.css' rel='stylesheet' />
 	<link href='dist/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-	<link href="dist/css/bryce_main.css" rel="stylesheet">
 	<link rel="stylesheet" href="dist/jq_ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
 
     <!-- Custom styles for this template -->
@@ -102,6 +101,7 @@ if(!(isset($_SESSION['MM_Username'])))
 <script id="source" language="javascript" type="text/javascript">
 
 $(document).ready(function() {
+
 	getUserInfo(false);
 	window.setTimeout(function(){checkForCustInfo()}, 500);
 });
@@ -115,9 +115,9 @@ $("#navbar_main_ul li").click(function() {
 		console.log("logging out...");
 	
 		$.ajax(
-		{ 
-			url: "cbox_logout.php", //the script to call to get data  
-			success: function(response) //on recieve of reply
+		{
+			url: "../../CRUD/general/cbox_logout.php",
+			success: function(response) //on receive of reply
 			{
 				console.log("logged out...");
 				window.location.replace("http://compete-box.com/login_bootstrap.php");
@@ -243,7 +243,7 @@ function subscribe() {
 	
 	$.ajax({      
 		type: "POST",
-		url: "setupNewSubscription.php", //the script to call to get data 
+		url: "../../CRUD/billing/cbox/setupNewSubscription.php", //the script to call to get data
 		data: form_data,
 		success: function(response) //on recieve of reply
 		{
@@ -276,7 +276,7 @@ var country;
 function checkForCustInfo() {
 	
 	$.ajax({                                     
-		url: "checkForCustBilling.php", //the script to call to get data             
+		url: "../../CRUD/billing/cbox/checkForCustBilling.php", //the script to call to get data
 		success: function(response) //on recieve of reply
 		{
 			console.log("Checked for customer billing: "+response);
@@ -342,8 +342,8 @@ function createNewCustomer() {
 function getUserInfo(variable) {
 	
 	$.ajax({                                     
-		url: "getuserinfov2.php", //the script to call to get data             
-		success: function(response) //on recieve of reply
+		url: "../../CRUD/billing/cbox/getuserinfov2.php",
+		success: function(response)
 		{
 			console.log("Billing get user info ajax: "+response);
 			if(variable == true) {
@@ -366,10 +366,10 @@ function getUserCreditCards(someString) {
 	
 	$.ajax({      
 		type: "POST",
-		url: "getUserCreditCards.php", //the script to call to get data 
+		url: "../../CRUD/billing/cbox/getUserCreditCards.php",
 		data: { "c_id":t_c_id,
 				"optional":opt_var },
-		success: function(response) //on recieve of reply
+		success: function(response)
 		{
 			console.log("Billing get user credit card(s) ajax: "+response);
 			loadUserCreditCards(response, opt_var);
@@ -381,7 +381,7 @@ function getCreditCardSubscriptions() {
 	var t_c_id = cust_id;
 	$.ajax({      
 		type: "POST",
-		url: "getUserSubscriptions.php", //the script to call to get data 
+		url: "../../CRUD/billing/cbox/getUserSubscriptions.php", //the script to call to get data
 		data: { "c_id":t_c_id },
 		success: function(response) //on recieve of reply
 		{
@@ -531,7 +531,7 @@ function addNewCreditCard() {
 	if(sendRequest == true) {
 		$.ajax({    
 			type: "POST",
-			url: "addNewCreditCard.php", //the script to call to get data  
+			url: "../../CRUD/billing/cbox/addNewCreditCard.php", //the script to call to get data
 			data: data,
 			success: function(response) //on recieve of reply
 			{
@@ -596,7 +596,7 @@ function removeCreditCard(rnum) {
 	$('#'+rnum).remove();
 	$.ajax({    
 			type: "POST",
-			url: "removeCreditCard.php", //the script to call to get data  
+			url: "../../CRUD/billing/cbox/removeCreditCard.php", //the script to call to get data
 			data: { "cc_token":value },
 			success: function(response) //on recieve of reply
 			{
@@ -615,7 +615,7 @@ function cancelSubscription(rnum) {
 	$('#sub_'+rnum).remove();
 	$.ajax({    
 			type: "POST",
-			url: "cancelSubscription.php", //the script to call to get data  
+			url: "../../CRUD/billing/cbox/cancelSubscription.php", //the script to call to get data
 			data: { "sub_token":value },
 			success: function(response) //on recieve of reply
 			{
@@ -638,7 +638,7 @@ function submitNewCustomer() {
 	
 	$.ajax({    
 		type: "POST",
-		url: "createNewCustomer.php", //the script to call to get data  
+		url: "../../CRUD/billing/cbox/createNewCustomer.php", //the script to call to get data
 		data: data,
 		success: function(response) //on recieve of reply
 		{
@@ -709,7 +709,7 @@ function closeRemoveModal() {
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-50665970-1', 'compete-box.com');
+  ga('create', 'UA-50665970-2', 'compete-box.com');
   ga('send', 'pageview');
 
 </script>
